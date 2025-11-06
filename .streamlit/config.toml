@@ -1,0 +1,16 @@
+[theme]
+primaryColor = "#00e5ff"
+backgroundColor = "#0b0f14"
+secondaryBackgroundColor = "#1a1f26"
+textColor = "#d0d7de"
+font = "monospace"
+
+[server]
+headless = false
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+serverAddress = "localhost"
