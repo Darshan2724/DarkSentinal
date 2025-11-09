@@ -1,14 +1,14 @@
 # Core Framework
 streamlit==1.28.0
-pandas==1.5.3
-numpy==1.24.3
+pandas~=2.0.3
+numpy~=1.23.5
 
 # Visualizations
-plotly==5.15.0
-matplotlib==3.7.1
+plotly~=5.13.1
+matplotlib~=3.7.1
 
 # Machine Learning
-scikit-learn==1.2.2
+scikit-learn~=1.2.2
 
 # Additional Features
 requests==2.31.0
