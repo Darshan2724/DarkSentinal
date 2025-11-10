@@ -605,7 +605,7 @@ def main():
             'attacker_ip', 'target_ip', 'location', 'industry',
             'attack_severity', 'data_compromised_GB', 'mitigation_method'
         ]].head(100),
-        width='stretch',
+        use_container_width=True,
         height=400
     )
     
@@ -621,13 +621,6 @@ def main():
             mime="text/csv",
             use_container_width=True
         )
-    
-    with col2:
-        if st.button("📊 GENERATE REPORT", use_container_width=True):
-            st.markdown(create_toast_notification(
-                "📄 Report generation initiated...",
-                "info"
-            ), unsafe_allow_html=True)
     
     # Footer
     st.markdown("<br><br>", unsafe_allow_html=True)

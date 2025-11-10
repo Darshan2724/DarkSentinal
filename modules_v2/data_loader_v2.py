@@ -37,8 +37,7 @@ def load_data(file_path='cybersecurity_large_synthesized_data.csv'):
             # Silently use data adapter to locate the best available dataset
             df = load_best_dataset(root_dir=str(root_dir))
         except Exception as e:
-            st.error(f"Data adapter error: {str(e)}")
-            # Fallback: try to load the file directly
+            # Silently fallback: try to load the file directly
             requested = Path(file_path)
             if requested.exists():
                 df = pd.read_csv(requested)
@@ -47,7 +46,7 @@ def load_data(file_path='cybersecurity_large_synthesized_data.csv'):
                 csv_files = list(root_dir.glob("*.csv"))
                 if csv_files:
                     df = pd.read_csv(csv_files[0])
-                    st.info(f"Using found dataset: {csv_files[0].name}")
+                    # Silently using found dataset
                 else:
                     raise FileNotFoundError(f"No suitable dataset found in {root_dir}")
         

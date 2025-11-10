@@ -19,6 +19,9 @@ ENV/
 # Data (keep CSVs since they're part of the project)
 # *.csv
 
+# Deployment backup (non-essential files)
+deployment_backup/
+
 # OS
 .DS_Store
 Thumbs.db

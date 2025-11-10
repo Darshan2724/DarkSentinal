@@ -9,16 +9,16 @@
 ## 🌟 Key Features
 
 ### 📊 Interactive Visualizations
-- **3D Globe View**: Geographic distribution of cyber attacks with interactive rotation and zoom
-- **Temporal Analysis**: 10-year trends (2015-2024) with dynamic filtering
-- **Attack Flow**: Interactive Sankey diagrams showing attack source → type → industry
-- **Defense Effectiveness**: Compare security mechanisms with radar and bar charts
+- **3D Globe View**: Geographic distribution of cyber attacks across 45 countries with interactive rotation and zoom
+- **Temporal Analysis**: 6-year trends (2019-2024) with dynamic filtering
+- **Attack Flow**: Interactive Sankey diagrams showing attack vector → type → industry
+- **Correlation Analysis**: 3D scatter plots showing relationships between severity, impact, and response time
 
 ### 📈 Advanced Analytics
-- **50,000+ Records**: Comprehensive dataset of major cyber incidents
-- **Multi-dimensional Filters**: Drill down by time period, country, attack type, and industry
-- **Correlation Analysis**: 3D visualization of financial impact, affected users, and resolution time
-- **Real-time Updates**: Dashboard responds instantly to filter changes
+- **30,000 Records**: Comprehensive dataset of cyber incidents (2019-2024)
+- **Multi-dimensional Filters**: Drill down by time period, location, attack type, industry, and severity
+
+- **Interactive Dashboards**: Dashboard responds instantly to filter changes with glassmorphism UI
 
 ### 🎨 Modern UI/UX
 - **Glassmorphism Design**: Sleek, professional interface with cyber aesthetics
@@ -28,16 +28,18 @@
 
 ## 📋 Dataset Overview
 
-- **Records**: 50,000+ cyber incidents (2015-2024)
-- **Coverage**: 10 countries, 7 industries, 6 attack types
-- **Financial Impact**: $858.9 billion total losses analyzed
-- **Affected Users**: 17.8 billion user accounts impacted
+- **Records**: 30,000 cyber incidents (2019-2024)
+- **Coverage**: 45 countries, 18 industries, 23 attack types
+- **Financial Impact**: $1.2 billion total losses analyzed
+- **Affected Users**: 65.7 million user accounts impacted
+- **Data Compromised**: 1,512.7 TB total data breach volume
 
 ### Data Points Tracked
-- **Attack Details**: Type, source, target industry, financial loss
-- **Impact Metrics**: Number of affected users, resolution time
-- **Defense Analysis**: Security mechanisms and their effectiveness
-- **Geographic Data**: Country-level attack distribution
+- **Attack Details**: Type, vector, origin, target industry, target system
+- **Impact Metrics**: Financial loss (USD), affected users, data compromised (GB), attack duration
+- **Response Analysis**: Response time, mitigation methods, incident outcomes
+- **Geographic Data**: Global coverage across 45 countries
+- **Temporal Data**: Timestamp, year, time-based patterns
 8. **Anomalies & Reports** - ML-based anomaly detection with exportable reports
 
 ### 🎨 Visual Theme
@@ -51,37 +53,36 @@
 ### 🔍 Filters
 
 Dynamic sidebar filters for:
-- Year
-- Month
-- Attack Type
-- Severity Level
-- Device/OS
-- Protocol
-- Action Taken
+- Time Period (2019-2024) with preset ranges
+- Attack Types (23 types: Ransomware, Phishing, DDoS, APT, Zero-Day, etc.)
+- Target Industries (18 sectors: Finance, Healthcare, Government, Technology, etc.)
+- Locations (45 countries globally)
+- Severity Range (1-10 scale)
+- Outcomes (Success, Blocked, Mitigated, etc.)
 
 ## 📁 Project Structure
 
 ```
-Cyber_Crime_Analysis/
+Cyber_Crime_Analysis2/
 │
-├── Global_Cybersecurity_Threats_2015-2024_LARGE.csv  # Main dataset (50,000+ records)
-├── Global_Cybersecurity_Threats_2015-2024.csv        # Regular dataset
-├── app_v2.py                     # Enhanced Streamlit application (current)
-├── app.py                        # Original version
-├── requirements.txt              # Python dependencies
-├── README.md                     # This file
+├── app_v2.py                                      # Main Streamlit application
+├── requirements_v2.txt                            # Python dependencies
+├── runtime.txt                                    # Python version (3.9.18)
+├── Global_Cybersecurity_Threats_2015-2024.csv    # Dataset (30,000 records)
+├── README.md                                      # This file
 │
-├── modules/                      # Core modules
-│   ├── data_adapter.py          # Dataset schema mapping
-│   ├── data_loader.py           # Basic data loading
-│   ├── preprocess.py            # Data preprocessing
-│   └── visuals.py               # Basic visualizations
+├── modules_v2/                                    # Application modules
+│   ├── advanced_visuals.py                       # 3D globe, Sankey, charts
+│   ├── data_loader_v2.py                         # Data loading & processing
+│   ├── glassmorphism_theme.py                    # UI theme and styling
+│   ├── live_feed.py                              # Attack ticker & live feed
+│   ├── data_loader_global.py                     # Global dataset handler
+│   ├── visuals_global.py                         # Global visualizations
+│   └── recent_attacks.py                         # Recent attacks display
 │
-└── modules_v2/                  # Enhanced modules for v2
-    ├── advanced_visuals.py      # 3D globe, Sankey, etc.
-    ├── data_loader_v2.py        # Enhanced data processing
-    ├── glassmorphism_theme.py   # UI theme and styling
-    └── live_feed.py             # Real-time updates
+├── DEPLOYMENT.md                                  # Deployment guide
+├── DEPLOYMENT_READINESS.md                        # Deployment analysis
+└── deployment_backup/                             # Backed up development files
 ```
 
 ## 🚀 Installation & Setup
@@ -100,7 +101,7 @@ cd "C:\DAV project\Cyber_Crime_Analysis"
 ### Step 2: Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_v2.txt
 ```
 
 ### Step 3: Run the Dashboard
@@ -113,67 +114,80 @@ The dashboard will open automatically in your default browser at `http://localho
 
 ## 📊 Data Overview
 
-**Dataset**: `Global_Cybersecurity_Threats_2015-2024_LARGE.csv`
-- **Records**: 50,000+ cyber attack events
-- **Time Range**: 2015-2024
-- **Core Fields**:
-  - Country and Year
-  - Attack Type and Target Industry
-  - Financial Loss (in Million $)
-  - Number of Affected Users
-  - Attack Source
-  - Security Vulnerability Type
-  - Defense Mechanism Used
-  - Incident Resolution Time (in Hours)
-- **Derived Analytics**:
-  - Attack severity scores
-  - Data compromised estimates
-  - Geographic coordinates
-  - Network identifiers (IPs)
-  - Temporal patterns
+**Dataset**: `Global_Cybersecurity_Threats_2015-2024.csv`
+- **Records**: 30,000 cyber attack events
+- **Time Range**: 2019-2024 (6 years)
+- **Core Fields** (16 columns):
+  - **Temporal**: timestamp, year
+  - **Geographic**: location (45 countries)
+  - **Attack Info**: attack_type (23 types), attack_vector, attacker_origin
+  - **Target**: target_industry (18 sectors), target_system
+  - **Severity**: attack_severity (1-10 scale), attack_duration_min
+  - **Impact**: financial_impact_USD, affected_users, data_compromised_GB
+  - **Response**: response_time_min, mitigation_method, outcome
+- **Analytics**:
+  - Real-time severity scoring
+  - Geographic attack distribution
+  - Industry-specific threat patterns
+  - Mitigation effectiveness analysis
+  - Time-based attack correlations
 
 ## 🧠 Data Processing
 
-The preprocessing pipeline (from `Cyber_crime_analysis.ipynb`) includes:
+The data processing pipeline includes:
 
-1. **Null Value Handling**
-   - `Alerts/Warnings` → 'Alert Triggered' or 'None'
-   - `IDS/IPS Alerts` → 'No Data' or 'Alert Data'
-   - `Malware Indicators` → 'IoC Detected' or 'No Detection'
-   - `Firewall Logs` → 'Log Data' or 'No Data'
-   - `Proxy Information` → IP or 'No Proxy Data'
+1. **Timestamp Processing**
+   - Parse timestamps to datetime format
+   - Extract year, month, day, hour for temporal analysis
+   - Calculate time-based patterns and trends
 
-2. **Feature Engineering**
-   - Extract `Device/OS` from user agent strings (Windows, Linux, Macintosh, iPad, etc.)
-   - Extract `Browser` (Mozilla, Opera)
-   - Parse `Timestamp` into Year, Month, Day, Hour, DayOfWeek, etc.
-   - Split `Geo-location Data` into City and State
+2. **Severity Normalization**
+   - Convert severity to numeric scale (1-10)
+   - Identify critical threats (severity ≥ 8)
+   - Calculate average severity across filters
 
-3. **Data Validation**
-   - No duplicate records
-   - All timestamps converted to datetime
-   - Categorical encoding for ML models
+3. **Impact Metrics**
+   - Financial impact converted to USD
+   - Data compromised tracked in GB
+   - Affected users aggregated by attack type
+   - Response time analyzed in minutes
 
-## 🤖 Anomaly Detection
+4. **Geographic Processing**
+   - 45 countries mapped for 3D globe visualization
+   - Attack density by location
+   - Cross-border threat analysis
 
-DarkSentinel uses **Isolation Forest** algorithm to detect unusual attack patterns:
+5. **Data Validation**
+   - No duplicate records (30,000 unique incidents)
+   - All critical fields validated
+   - Cached for performance optimization
 
-- **Features Used**: Anomaly Scores, Packet Length, Source Port, Destination Port
-- **Contamination**: 10% (configurable)
-- **Output**: Anomaly flag, ML anomaly score, top anomalous records
-- **Insights**: Most common attack types, devices, protocols in anomalies
+## 🤖 Advanced Analytics
 
-## 📈 Key Insights from Analysis
+DarkSentinel provides comprehensive threat intelligence:
 
-From the Jupyter notebook analysis:
+- **Severity Analysis**: Real-time severity scoring (1-10 scale) with critical threat identification
+- **Mitigation Tracking**: Success rates of different mitigation methods
+- **Correlation Analysis**: 3D visualization of attack_severity × data_compromised × response_time
+- **Temporal Patterns**: Time-of-day and day-of-week attack distribution
+- **Geographic Insights**: 3D globe showing global attack distribution across 45 countries
+- **Industry Targeting**: Sunburst and treemap views of industry-specific threats
 
-- **2023**: Least attacks overall, but DDoS was most frequent
-- **2022**: Malware attacks peaked
-- **March**: Highest attack month (3,678 attacks)
-- **December**: Lowest attack month (2,675 attacks)
-- **Monday**: Most attacks occur on Mondays
-- **Windows**: Most targeted OS (44.9%)
-- **Mozilla**: Most vulnerable browser (79.9%)
+## 📈 Key Insights from Dataset
+
+From the 30,000 attack records (2019-2024):
+
+- **Time Range**: 6 years of comprehensive threat data (2019-2024)
+- **Attack Distribution**: ~5,000 attacks per year (evenly distributed)
+- **Geographic Coverage**: 45 countries across all continents
+- **Attack Diversity**: 23 distinct attack types including:
+  - Ransomware, Phishing, DDoS, APT
+  - Zero-Day Exploits, SQL Injection, XSS
+  - Cryptojacking, IoT Attacks, Supply Chain Attacks
+- **Industry Impact**: 18 sectors targeted (Finance, Healthcare, Government, etc.)
+- **Financial Impact**: $1.2B total with individual attacks ranging from thousands to millions
+- **Data Breaches**: 1,512.7 TB total data compromised
+- **Affected Users**: 65.7 million users impacted globally
 
 ## 🎯 Use Cases
 
@@ -187,7 +201,7 @@ From the Jupyter notebook analysis:
 
 ### Modify Theme Colors
 
-Edit `app.py` CSS section:
+Edit `modules_v2/glassmorphism_theme.py` color definitions:
 
 ```python
 st.markdown("""
@@ -203,7 +217,7 @@ st.markdown("""
 
 ### Add New Visualizations
 
-Add functions to `modules/visuals.py`:
+Add functions to `modules_v2/advanced_visuals.py` or `modules_v2/visuals_global.py`:
 
 ```python
 def create_custom_chart(df, title='My Chart'):
@@ -212,15 +226,17 @@ def create_custom_chart(df, title='My Chart'):
     return fig
 ```
 
-### Adjust Anomaly Detection
+### Adjust Severity Thresholds
 
-Modify contamination parameter in `app.py`:
+Modify severity calculations in `app_v2.py`:
 
 ```python
-model, scaler, features = train_anomaly_detector(
-    filtered_df, 
-    contamination=0.05  # Change from 0.1 to 0.05 for stricter detection
-)
+# Critical attacks threshold
+critical_attacks = (filtered_df['severity_num'] >= 8).sum()
+
+# Adjust mitigation rate calculation
+defensive_keywords = ['block', 'quarantine', 'prevent', 'stop', 'resolve']
+mitigation_rate = (defensive_count / total_attacks * 100)
 ```
 
 ## 📦 Deployment Options
@@ -237,7 +253,7 @@ model, scaler, features = train_anomaly_detector(
 FROM python:3.9-slim
 WORKDIR /app
 COPY . /app
-RUN pip install -r requirements.txt
+RUN pip install -r requirements_v2.txt
 EXPOSE 8501
 CMD ["streamlit", "run", "app_v2.py"]
 ```
@@ -250,11 +266,11 @@ Follow platform-specific deployment guides for Streamlit apps.
 
 ### Issue: "Module not found"
 ```bash
-pip install --upgrade -r requirements.txt
+pip install --upgrade -r requirements_v2.txt
 ```
 
 ### Issue: "Data file not found"
-Ensure `cybersecurity_attacks.csv` is in the same directory as `app.py`
+Ensure `Global_Cybersecurity_Threats_2015-2024.csv` is in the project root directory
 
 ### Issue: Slow performance
 - Reduce data size by filtering years
@@ -263,12 +279,12 @@ Ensure `cybersecurity_attacks.csv` is in the same directory as `app.py`
 
 ## 📚 Technologies Used
 
-- **Streamlit**: Web framework
-- **Pandas**: Data manipulation
-- **Plotly**: Interactive visualizations
-- **Scikit-learn**: Machine learning (Isolation Forest)
-- **NumPy**: Numerical computing
-- **Matplotlib**: Additional plotting
+- **Streamlit 1.30.0**: Web framework for interactive dashboards
+- **Pandas 2.1.4**: Data manipulation and analysis
+- **Plotly 5.18.0**: Interactive 3D visualizations and charts
+- **NumPy 1.26.2**: Numerical computing
+- **Matplotlib 3.8.2**: Additional plotting capabilities
+- **Scikit-learn 1.3.2**: Data analysis and metrics
 
 ## 🤝 Contributing
 
