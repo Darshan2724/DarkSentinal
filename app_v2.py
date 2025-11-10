@@ -11,26 +11,31 @@ from datetime import datetime, timedelta
 import time
 
 # Import custom modules
-from modules_v2.glassmorphism_theme import (
-    apply_glassmorphism_theme, create_metric_card, create_header,
-    create_section_header, create_toast_notification, COLORS
-)
-
-# Define text color for convenience
-TEXT_COLOR = COLORS['text_secondary']
-from modules_v2.data_loader_v2 import (
-    load_data, get_data_summary, get_attack_statistics,
-    get_real_time_metrics, filter_data, get_top_threats
-)
-from modules_v2.advanced_visuals import (
-    create_3d_globe, create_animated_timeline, create_sunburst_chart,
-    create_3d_scatter, create_radar_chart, create_heatmap_calendar,
-    create_gauge_chart, create_treemap, create_sankey_flow, create_waterfall_chart,
-    create_mitigation_chart
-)
-from modules_v2.live_feed import (
-    create_top_attacks, create_attack_ticker, create_status_board
-)
+try:
+    from modules_v2.glassmorphism_theme import (
+        apply_glassmorphism_theme, create_metric_card, create_header,
+        create_section_header, create_toast_notification, COLORS
+    )
+    
+    # Define text color for convenience
+    TEXT_COLOR = COLORS['text_secondary']
+    
+    from modules_v2.data_loader_v2 import (
+        load_data, get_data_summary, get_attack_statistics,
+        get_real_time_metrics, filter_data, get_top_threats
+    )
+    from modules_v2.advanced_visuals import (
+        create_3d_globe, create_animated_timeline, create_sunburst_chart,
+        create_3d_scatter, create_radar_chart, create_heatmap_calendar,
+        create_gauge_chart, create_treemap, create_sankey_flow, create_waterfall_chart,
+        create_mitigation_chart
+    )
+    from modules_v2.live_feed import (
+        create_top_attacks, create_attack_ticker, create_status_board
+    )
+except Exception as e:
+    st.error(f"❌ Module Import Error: {e}")
+    st.stop()
 
 # Page configuration
 st.set_page_config(
@@ -645,4 +650,10 @@ def main():
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        st.error(f"🚨 Application Error: {str(e)}")
+        st.error("Please check the logs for more details.")
+        import traceback
+        st.code(traceback.format_exc())
