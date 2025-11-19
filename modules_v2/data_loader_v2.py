@@ -130,6 +130,12 @@ def load_data(file_path='cybersecurity_large_synthesized_data.csv'):
         # Add response efficiency (lower is better)
         df['response_efficiency'] = df['response_time_min'] / df['attack_duration_min']
         
+        # OPTIMIZATION: Convert object columns to category for memory efficiency and speed
+        categorical_cols = ['attack_type', 'target_system', 'location', 'industry', 'outcome', 'user_role', 'mitigation_method']
+        for col in categorical_cols:
+            if col in df.columns:
+                df[col] = df[col].astype('category')
+        
         return df
         
     except FileNotFoundError:
@@ -230,7 +236,7 @@ def get_real_time_metrics(df, last_n_hours=24):
 
 def filter_data(df, filters):
     """
-    Apply multiple filters to dataframe
+    Apply multiple filters to dataframe using optimized boolean indexing
     
     Parameters:
     -----------
@@ -244,49 +250,44 @@ def filter_data(df, filters):
     pd.DataFrame
         Filtered dataframe
     """
-    filtered = df.copy()
+    # Start with a mask of all True
+    mask = pd.Series(True, index=df.index)
     
     if filters.get('date_range') and len(filters['date_range']) == 2:
         start_date, end_date = filters['date_range']
         # Convert to datetime for proper comparison
         start_dt = pd.to_datetime(start_date)
         end_dt = pd.to_datetime(end_date) + pd.Timedelta(days=1) - pd.Timedelta(seconds=1)  # Include full end day
-        filtered = filtered[
-            (filtered['timestamp'] >= start_dt) &
-            (filtered['timestamp'] <= end_dt)
-        ]
+        mask &= (df['timestamp'] >= start_dt) & (df['timestamp'] <= end_dt)
     
     if filters.get('attack_types'):
-        filtered = filtered[filtered['attack_type'].isin(filters['attack_types'])]
+        mask &= df['attack_type'].isin(filters['attack_types'])
     
     if filters.get('target_systems'):
-        filtered = filtered[filtered['target_system'].isin(filters['target_systems'])]
+        mask &= df['target_system'].isin(filters['target_systems'])
     
     if filters.get('locations'):
-        filtered = filtered[filtered['location'].isin(filters['locations'])]
+        mask &= df['location'].isin(filters['locations'])
     
     if filters.get('industries'):
-        filtered = filtered[filtered['industry'].isin(filters['industries'])]
+        mask &= df['industry'].isin(filters['industries'])
     
     if filters.get('outcomes'):
-        filtered = filtered[filtered['outcome'].isin(filters['outcomes'])]
+        mask &= df['outcome'].isin(filters['outcomes'])
     
     if filters.get('severity_range'):
         min_sev, max_sev = filters['severity_range']
         # Convert severity to numeric for comparison
-        severity_numeric = pd.to_numeric(filtered['attack_severity'], errors='coerce').fillna(5)
-        filtered = filtered[
-            (severity_numeric >= min_sev) &
-            (severity_numeric <= max_sev)
-        ]
+        severity_numeric = pd.to_numeric(df['attack_severity'], errors='coerce').fillna(5)
+        mask &= (severity_numeric >= min_sev) & (severity_numeric <= max_sev)
     
     if filters.get('user_roles'):
-        filtered = filtered[filtered['user_role'].isin(filters['user_roles'])]
+        mask &= df['user_role'].isin(filters['user_roles'])
     
     if filters.get('security_tools'):
-        filtered = filtered[filtered['security_tools_used'].isin(filters['security_tools'])]
+        mask &= df['security_tools_used'].isin(filters['security_tools'])
     
-    return filtered
+    return df[mask]
 
 def get_top_threats(df, n=10):
     """

@@ -380,7 +380,7 @@ def main():
     with col1:
         with st.container():
             fig_globe = create_3d_globe(filtered_df)
-            st.plotly_chart(fig_globe, use_container_width=True, key="globe_main")
+            st.plotly_chart(fig_globe, width='stretch', key="globe_main")
     
     with col2:
         # Top locations - dynamic based on filtered data
@@ -434,7 +434,7 @@ def main():
             ),
             margin=dict(l=0, r=0, t=40, b=20)
         )
-        st.plotly_chart(fig_loc, use_container_width=True, key="top_locations")
+        st.plotly_chart(fig_loc, width='stretch', key="top_locations")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -449,7 +449,7 @@ def main():
         st.markdown("<div class='glass-card' style='padding: 15px; height: 100%;'>", unsafe_allow_html=True)
         st.markdown("<h3 style='color: " + COLORS['cyan'] + "; text-align: center;'>🌐 Attack Distribution</h3>", unsafe_allow_html=True)
         fig_sunburst = create_sunburst_chart(filtered_df)
-        st.plotly_chart(fig_sunburst, use_container_width=True, key="sunburst_chart")
+        st.plotly_chart(fig_sunburst, width='stretch', key="sunburst_chart")
         st.markdown("</div>", unsafe_allow_html=True)
     
     with col2:
@@ -457,7 +457,7 @@ def main():
         st.markdown("<div class='glass-card' style='padding: 15px; height: 100%;'>", unsafe_allow_html=True)
         st.markdown("<h3 style='color: " + COLORS['cyan'] + "; text-align: center;'>🌳 Attack Categories</h3>", unsafe_allow_html=True)
         fig_treemap = create_treemap(filtered_df)
-        st.plotly_chart(fig_treemap, use_container_width=True, key="treemap")
+        st.plotly_chart(fig_treemap, width='stretch', key="treemap")
         st.markdown("</div>", unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
@@ -465,7 +465,7 @@ def main():
     # 3D Scatter Analysis
     st.markdown(create_section_header("🔮 3D ATTACK CORRELATION", ""), unsafe_allow_html=True)
     fig_3d = create_3d_scatter(filtered_df)
-    st.plotly_chart(fig_3d, use_container_width=True, key="3d_scatter")
+    st.plotly_chart(fig_3d, width='stretch', key="3d_scatter")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -476,11 +476,11 @@ def main():
     
     with col1:
         fig_mitigation = create_mitigation_chart(filtered_df)
-        st.plotly_chart(fig_mitigation, use_container_width=True, key="mitigation_chart")
+        st.plotly_chart(fig_mitigation, width='stretch', key="mitigation_chart")
     
     with col2:
         fig_waterfall = create_waterfall_chart(filtered_df)
-        st.plotly_chart(fig_waterfall, use_container_width=True, key="waterfall_chart")
+        st.plotly_chart(fig_waterfall, width='stretch', key="waterfall_chart")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -491,7 +491,7 @@ def main():
     
     with col1:
         fig_calendar = create_heatmap_calendar(filtered_df)
-        st.plotly_chart(fig_calendar, use_container_width=True, key="calendar_heatmap")
+        st.plotly_chart(fig_calendar, width='stretch', key="calendar_heatmap")
     
     with col2:
         # Time period distribution - clearer visualization
@@ -551,14 +551,14 @@ def main():
             showlegend=False,
             height=450
         )
-        st.plotly_chart(fig_period, use_container_width=True, key="time_period_chart")
+        st.plotly_chart(fig_period, width='stretch', key="time_period_chart")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
     # Attack Flow
     st.markdown(create_section_header("🔀 ATTACK FLOW DIAGRAM", ""), unsafe_allow_html=True)
     fig_sankey = create_sankey_flow(filtered_df)
-    st.plotly_chart(fig_sankey, use_container_width=True, key="sankey_chart")
+    st.plotly_chart(fig_sankey, width='stretch', key="sankey_chart")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
